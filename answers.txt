@@ -1,0 +1,44 @@
+sort1 uses: bubble sort
+
+How do you know?: OMEGA(n), O(n^2)
+sorted5000: 0.045s
+sorted10000: 0.063s
+sorted50000: 0.505s
+
+random5000: 0.086s
+random10000: 0.272s
+random50000: 8.487s
+
+reversed5000: 0.074s
+reversed10000: 0.306s
+reversed50000: 6.570s
+
+sort2 uses: merge sort
+
+How do you know?: THETA(n*log(n))
+sorted5000: 0.040s
+sorted10000: 0.067s
+sorted50000: 0.625s
+
+random5000: 0.043s
+random10000: 0.084s
+random50000: 0.561s
+
+reversed5000: 0.034s
+reversed10000: 0.096s
+reversed50000: 0.613s
+
+sort3 uses: selection sort
+
+How do you know?: THETA(n^2)
+sorted5000: 0.056s
+sorted10000: 0.250s
+sorted50000: 4.175s
+
+random5000: 0.060s
+random10000: 0.182s
+random50000: 4.350s
+
+reversed5000: 0.075s
+reversed10000: 0.209s
+reversed50000: 4.110s
