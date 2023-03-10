@@ -1,0 +1,5 @@
+The averages are avg_energy = 0.66, avg_valence = 0.48 and avg_danceability = 0.72. According to these numbers I would characterize the audio aura
+as mainstream, pretty upbeat and neutral in mood.
+
+The calculation only takes into consideration three aspects of a song. A direct improvement would be to at least take the average for all parameters
+that characterizes a song. 
