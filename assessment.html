@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        <link href="styles.css" rel="stylesheet">
+        <title>Assessment</title>
+    </head>
+    <body>
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-sm bg-light">
+            <div class="container-fluid">
+              <span class="navbar-brand">CS50x Problem Set 8</span>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                    <a class="nav-link" href="index.html">Home</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="specification.html">Specification</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="checklist.html">Checklist</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="assessment.html">Assessment</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link disabled">Source Code</a>
+                  </li>
+                </ul>
+                <form class="d-flex" action="https://www.google.com/search" method="get">
+                  <input class="form-control me-2" autocomplete="off" autofocus name="q" placeholder="Search with Google" type="search">
+                  <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+              </div>
+            </div>
+          </nav>
+
+          <!-- Main -->
+          <main>
+            <h1>Assessment</h1>
+            <p>The site's correctness will be assessed based on whether it meets the requirements of the specification, and whether the HTML is well-formed and valid. To ensure that the pages are, you can use this <a href="https://validator.w3.org/#validate_by_input" class="link-primary">Markup Validation Service</a>, copying and pasting your HTML directly into the provided text box. Take care to eliminate any warnings or errors suggested by the validator before submitting!</p>
+            <p>Consider also:</p>
+            <ul class="specification__list">
+                <li>
+                    whether the aesthetics of the site are such that it is intuitive and straightforward for a user to navigate;
+                </li>
+                <li>
+                    whether the CSS has been factored out into a separate CSS file(s); and
+                </li>
+                <li>
+                    whether you have avoided repetition and redundancy by “cascading” style properties from parent tags.
+                </li>
+            </ul>
+            <h2>Are all requirements fulfilled?</h2>
+            <div class="confetti__container">
+                <button class="button js-confetti">PRESS ME</button>
+                <audio src="https://assets.codepen.io/1256430/whistle.mp3" id="sound" preload="auto" hidden></audio>
+            </div>
+          </main>
+
+        <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
+        <script src="app.js"></script>
+    </body>
+</html>

@@ -1,0 +1,113 @@
+* {
+    box-sizing: border-box;
+    font-size: 100%;
+    display: relative;
+}
+
+h1 {
+    margin: 3rem;
+}
+
+h2 {
+    margin: 3rem;
+}
+
+p {
+    margin-left: 3rem;
+    margin-right: 4rem;
+}
+
+#home__h1 {
+    display: flex;
+    justify-content: center;
+    font-size: 2rem;
+    margin: 10rem 0 -0.3rem;
+}
+
+#home__h2 {
+    display: flex;
+    justify-content: center;
+    font-size: 4rem;
+    font-weight: normal;
+    margin-bottom: 7rem;
+}
+
+.specification__list {
+    padding-left: 5rem;
+    margin-right: 4rem;
+}
+
+.scroll__container {
+    background: #f4f4f4;
+    border: 1px solid #dddddd;
+    width: 95%;
+    overflow-x: scroll;
+    margin: 20px 0;
+}
+
+.scroll__text {
+    width: 1800px;
+    margin: 10px;
+    color: green;
+}
+
+#no-scroll {
+    color: green;
+    overflow-x: hidden;
+    padding: 10px;
+}
+
+.form-check {
+    margin-left: 3rem;
+}
+
+.confetti__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 3rem;
+    /* min-height: 100%;
+    min-height: 100vh; */
+    /* background-color: papayawhip; */
+}
+
+.button {
+    background-color: #fa8072;
+    color: white;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    border-radius: 0.25em;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    user-select: none;
+    transition: all 0.2s ease-in-out;
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+    padding: 1em 2em;
+    transform: translateY(0);
+    box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+    transition: all 0.15s ease;
+    cursor: pointer;
+}
+
+.button:hover,
+.button:focus {
+    background-color: #f97263;
+    transform: translateY(-1px);
+    box-shadow: 0 7px 14px rgba(50, 50, 50, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
+    outline:0;
+}
+
+.button:focus-visible {
+    outline:2px solid #f97263;
+    outline-offset: 5px;
+}
+
+.button:active {
+    transform: translateY(1px);
+    box-shadow: 0 3px 12px -2px inset rgba(50, 50, 50, 0.25);
+}
