@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Sign Up
+{% endblock %}
+
+{% block gate %}
+    <div class="form-container">
+        <a href="/" class="logo"><i class="logo-pawn fa-solid fa-chess-pawn fa-xl" style="color: #7fa650;"></i><span class="logo-text">Chess</span><span>50</span></a>
+        <div class="form-card">
+            <h1 class="form-title">Join Now</h1>
+            <h3 class="form-subtitle">and Start Playing Chess!</h3>
+            <form action="/register" method="post">
+                <div class="mb-3">
+                    <input autocomplete="off" class="form-control mx-auto w-auto" id="username" name="username" placeholder="Username" type="text">
+                </div>
+                <div class="mb-3">
+                    <input class="form-control mx-auto w-auto" id="password" name="password" placeholder="Password" type="password">
+                </div>
+                <div class="mb-3">
+                    <input class="form-control mx-auto w-auto" id="confirmation" name="confirmation" placeholder="Password (again)" type="password">
+                </div>
+                <p>What is your chess skill level?</p>
+                <div class="skill-card-container">
+                    <button class="skill-card" type="button">
+                        <i class="skill-icon fa-solid fa-chess-pawn fa-2xl" style="color: #e6e6e6;"></i>
+                        <div class="skill-card-text">New to Chess</div>
+                    </button>
+                    <button class="skill-card" type="button">
+                        <i class="skill icon fa-solid fa-chess-knight fa-2xl" style="color: #e6e6e6;"></i>
+                        <div class="skill-card-text">Beginner</div>
+                    </button>
+                    <button class="skill-card" type="button">
+                        <i class="skill icon fa-solid fa-chess-rook fa-2xl" style="color: #e6e6e6;"></i>
+                        <div class="skill-card-text">Intermediate</div>
+                    </button>
+                    <button class="skill-card" type="button">
+                        <i class="skill icon fa-solid fa-chess-queen fa-2xl" style="color: #e6e6e6;"></i>
+                        <div class="skill-card-text">Advanced</div>
+                    </button>
+                </div>
+                <button class="register-btn" type="submit">Sign Up</button>
+            </form>
+            <p>Already have an account? <a href="/login">Log In</a></p>
+        </div>
+    </div>
+{% endblock %}
