@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Log In
+{% endblock %}
+
+{% block gate %}
+    <div class="form-container">
+        <a href="/" class="logo"><i class="logo-pawn fa-solid fa-chess-pawn fa-xl" style="color: #7fa650;"></i><span class="logo-text">Chess</span><span>50</span></a>
+        <div class="form-card">
+            <form action="/login" method="post">
+                <div class="mb-3">
+                    <input autocomplete="off" class="form-control mx-auto w-auto" id="username" name="username" placeholder="Username" type="text">
+                </div>
+                <div class="mb-3">
+                    <input class="form-control mx-auto w-auto" id="password" name="password" placeholder="Password" type="password">
+                </div>
+                <button class="register-btn" type="submit">Log In</button>
+            </form>
+            <p>New? <a href="/register">Sign up - and start playing chess!</a></p>
+        </div>
+    </div>
+{% endblock %}
