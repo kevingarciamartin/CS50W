@@ -1,7 +1,15 @@
 :root {
-    --fc-400: black;
+    --ac-400: #3f4246;
+    --ac-500: #5f6368;
+
+    --bc-400: #202124;
+    --bc-500: #303134;
+
+    --fc-400: white;
 
     --fs-400: 14px;
+    --fs-800: 34px;
+    --fs-900: 90px;
 }
 
 *,
@@ -11,6 +19,8 @@
 }
 
 body {
+    background: var(--bc-400);
+    color: var(--fc-400);
     font-family: arial, sans-serif;
     font-size: var(--fs-400);
     display: grid;
@@ -29,4 +39,52 @@ body {
 
 .primary-nav a:hover {
     text-decoration: underline;
+}
+
+h1 {
+    justify-self: center;
+    font-size: var(--fs-900);
+    font-weight: 500;
+    letter-spacing: -3px;
+}
+
+form {
+    display: grid;
+    gap: 1.5rem;
+    justify-items: center;
+}
+
+form input[type="text"] {
+    color: inherit;
+    background: var(--bc-400);
+    border: 1px solid var(--ac-400);
+    border-radius: 10rem;
+    padding: 1em;
+    width: clamp(360px, 80vw + 1rem, 584px);
+}
+
+form input[type="text"]:hover,
+form input[type="text"]:focus-visible {
+    background: var(--ac-400);
+}
+
+form input[type="submit"] {
+    color: inherit;
+    background: var(--bc-500);
+    padding: 0.7em 1em;
+    border: 1px solid var(--bc-500);
+    border-radius: 4px;
+}
+
+form input[type="submit"]:hover,
+form input[type="submit"]:focus-visible {
+    border: 1px solid var(--ac-500);
+}
+
+@media (max-width: 600px) {
+    h1 {
+        font-size: var(--fs-800);
+        margin-top: 3em;
+        letter-spacing: -1px;
+    }
 }
