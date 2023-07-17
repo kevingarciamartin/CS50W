@@ -85,6 +85,11 @@ form input[type="submit"]:focus-visible {
     border: 1px solid var(--ac-500);
 }
 
+.button-wrapper {
+    display: flex;
+    gap: 1em;
+}
+
 .advanced-form input[type="submit"] {
     background: var(--bc-600);
 }
