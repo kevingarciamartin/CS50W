@@ -4,11 +4,14 @@
 
     --bc-400: #202124;
     --bc-500: #303134;
+    --bc-600: #8ab4f8;
+    --bc-650: #aecbfa;
 
     --fc-400: white;
 
     --fs-400: 14px;
-    --fs-800: 34px;
+    --fs-700: 34px;
+    --fs-800: 60px;
     --fs-900: 90px;
 }
 
@@ -24,6 +27,7 @@ body {
     font-family: arial, sans-serif;
     font-size: var(--fs-400);
     display: grid;
+    margin: 1rem;
 }
 
 .primary-nav {
@@ -81,10 +85,75 @@ form input[type="submit"]:focus-visible {
     border: 1px solid var(--ac-500);
 }
 
-@media (max-width: 600px) {
+.advanced-form input[type="submit"] {
+    background: var(--bc-600);
+}
+
+.advanced-form input[type="submit"]:hover,
+.advanced-form input[type="submit"]:focus-visible {
+    background: var(--bc-650);
+}
+
+@media (max-width: 682px) {
     h1 {
-        font-size: var(--fs-800);
+        font-size: clamp(var(--fs-700), 4vw + 1rem, var(--fs-800));
         margin-top: 3em;
         letter-spacing: -1px;
+    }
+}
+
+@media (min-width: 682px) {
+    .advanced-form {
+        display: grid;
+        margin-inline: 5rem;
+        grid-template-columns: 1fr 2fr;
+        grid-template-areas: 
+            "header ."
+            "text1 input1"
+            "text2 input2"
+            "text3 input3"
+            "text4 input4"
+            ". button"
+    }
+
+    .advanced-form h3 { 
+        grid-area: header; 
+        font-weight: 400;
+    }
+    #as_q { grid-area: text1; }
+    #as_epq { grid-area: text2; }
+    #as_oq { grid-area: text3; }
+    #as_eq { grid-area: text4; }
+    .advanced-form h3,
+    .advanced-form span {
+        justify-self: start;
+    }
+    .advanced-form input[name="as_q"] {
+        grid-area: input1;
+        width: 100% 
+    }
+    .advanced-form input[name="as_epq"] {
+        grid-area: input2;
+        width: 100% 
+    }
+    .advanced-form input[name="as_oq"] {
+        grid-area: input3;
+        width: 100% 
+    }
+    .advanced-form input[name="as_eq"] {
+        grid-area: input4;
+        width: 100% 
+    }
+    .advanced-form input[type="text"] {
+        border-radius: 0;
+        padding: 0.2em;
+    }
+    .advanced-form input[type="text"]:hover,
+    .advanced-form input[type="text"]:focus-visible {
+        background: var(--bc-400);
+    }
+    .advanced-form input[type="submit"] {
+        grid-area: button; 
+        justify-self: end; 
     }
 }
