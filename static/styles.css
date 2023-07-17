@@ -1,3 +1,9 @@
+:root {
+    --fc-400: black;
+
+    --fs-400: 14px;
+}
+
 *,
 *::before,
 *::after {
@@ -5,6 +11,22 @@
 }
 
 body {
+    font-family: arial, sans-serif;
+    font-size: var(--fs-400);
     display: grid;
-    grid-template-rows: auto 1fr;
+}
+
+.primary-nav {
+    justify-self: end;
+    display: flex;
+    gap: 1em;
+}
+
+.primary-nav a {
+    color: var(--fc-400);
+    text-decoration: none;
+}
+
+.primary-nav a:hover {
+    text-decoration: underline;
 }
