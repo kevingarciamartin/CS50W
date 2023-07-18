@@ -63,8 +63,9 @@ form input[type="text"] {
     background: var(--bc-400);
     border: 1px solid var(--ac-400);
     border-radius: 10rem;
-    padding: 1em;
+    padding: 1em 4em;
     width: clamp(360px, 80vw + 1rem, 584px);
+    outline: none;
 }
 
 form input[type="text"]:hover,
@@ -78,6 +79,7 @@ form input[type="submit"] {
     padding: 0.7em 1em;
     border: 1px solid var(--bc-500);
     border-radius: 4px;
+    outline: none;
 }
 
 form input[type="submit"]:hover,
@@ -90,6 +92,22 @@ form input[type="submit"]:focus-visible {
     gap: 1em;
 }
 
+.advanced-form input[type="text"] {
+    border-radius: 0;
+    padding: 0.5em;
+    outline: none;
+    border: 1px solid var(--ac-500);
+}
+
+.advanced-form input[type="text"]:hover,
+.advanced-form input[type="text"]:focus-visible {
+    background: var(--bc-400);
+}
+
+.advanced-form input[type="text"]:focus-visible {
+    border: 1px solid var(--bc-600);
+}
+
 .advanced-form input[type="submit"] {
     background: var(--bc-600);
 }
@@ -99,7 +117,7 @@ form input[type="submit"]:focus-visible {
     background: var(--bc-650);
 }
 
-@media (max-width: 682px) {
+@media (max-width: 700px) {
     h1 {
         font-size: clamp(var(--fs-700), 4vw + 1rem, var(--fs-800));
         margin-top: 3em;
@@ -107,11 +125,11 @@ form input[type="submit"]:focus-visible {
     }
 }
 
-@media (min-width: 682px) {
+@media (min-width: 700px) {
     .advanced-form {
         display: grid;
-        margin-inline: 5rem;
-        grid-template-columns: 1fr 2fr;
+        margin-inline: auto;
+        grid-template-columns: 1fr 3fr;
         grid-template-areas: 
             "header ."
             "text1 input1"
@@ -148,14 +166,6 @@ form input[type="submit"]:focus-visible {
     .advanced-form input[name="as_eq"] {
         grid-area: input4;
         width: 100% 
-    }
-    .advanced-form input[type="text"] {
-        border-radius: 0;
-        padding: 0.2em;
-    }
-    .advanced-form input[type="text"]:hover,
-    .advanced-form input[type="text"]:focus-visible {
-        background: var(--bc-400);
     }
     .advanced-form input[type="submit"] {
         grid-area: button; 
