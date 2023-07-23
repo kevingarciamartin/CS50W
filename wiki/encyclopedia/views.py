@@ -16,3 +16,13 @@ def index(request):
         "entries": util.list_entries()
     })
 
+def entry(request, title):
+    content = md_to_html(title)
+    if content == None:
+        return render(request, "encyclopedia/error.html")
+    else:
+        return render(request, "encyclopedia/entry.html", {
+            "title": title,
+            "content": content
+        })
+
