@@ -2,6 +2,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from markdown2 import Markdown
+from random import randrange
 
 from . import util
 
@@ -80,4 +81,15 @@ def edit(request, title):
     return render(request, "encyclopedia/edit.html", {
         "title": title,
         "content": md_content
+    })
+    
+def random(request):
+    entries = util.list_entries()
+    index = randrange(len(entries))
+    title = entries[index]
+    md_content = util.get_entry(title)
+    content = md_to_html(md_content)
+    return render(request, "encyclopedia/entry.html", {
+        "title": title,
+        "content": content
     })
