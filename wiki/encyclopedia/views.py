@@ -18,7 +18,7 @@ def entry(request, title):
     md_content = util.get_entry(title)
     if md_content == None:
         return render(request, "encyclopedia/error.html", {
-            "message": "The requested page was not found"
+            "message": f"The requested page '{title}' was not found"
         })
     else:
         content = md_to_html(md_content)
@@ -65,3 +65,19 @@ def new_page(request):
             })
     
     return render(request, "encyclopedia/new_page.html")
+
+def edit(request, title):
+    if request.method == "POST":
+        md_content = request.POST["markdown_content"]
+        util.save_entry(title, md_content)
+        content = md_to_html(md_content)
+        return render(request, "encyclopedia/entry.html", {
+            "title": title,
+            "content": content
+        })
+    
+    md_content = util.get_entry(title)    
+    return render(request, "encyclopedia/edit.html", {
+        "title": title,
+        "content": md_content
+    })
