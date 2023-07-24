@@ -1,15 +1,13 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django.urls import reverse
 from markdown2 import Markdown
 
 from . import util
 
-def md_to_html(title):
-    content = util.get_entry(title)
+def md_to_html(content):
     markdowner = Markdown()
-    if content == None:
-        return None
-    else:
-        return markdowner.convert(content)
+    return markdowner.convert(content)
 
 def index(request):
     return render(request, "encyclopedia/index.html", {
@@ -17,12 +15,13 @@ def index(request):
     })
 
 def entry(request, title):
-    content = md_to_html(title)
-    if content == None:
+    md_content = util.get_entry(title)
+    if md_content == None:
         return render(request, "encyclopedia/error.html", {
             "message": "The requested page was not found"
         })
     else:
+        content = md_to_html(md_content)
         return render(request, "encyclopedia/entry.html", {
             "title": title,
             "content": content
@@ -31,8 +30,9 @@ def entry(request, title):
 def search(request):
     if request.method == "POST":
         query = request.POST["q"]
-        content = md_to_html(query)
-        if content is not None:
+        md_content = util.get_entry(query)
+        if md_content is not None:
+            content = md_to_html(md_content)
             return render(request, "encyclopedia/entry.html", {
                 "title": query,
                 "content": content
@@ -47,3 +47,21 @@ def search(request):
                 "query": query,
                 "search_result": search_result
             })
+
+def new_page(request):
+    if request.method == "POST":
+        title = request.POST["title"]
+        if util.get_entry(title) is not None:
+            return render(request, "encyclopedia/error.html", {
+                "message": f"An encyclopedia entry already exists with the title '{title}'"
+            })
+        else:
+            md_content = request.POST["markdown_content"]
+            util.save_entry(title, md_content)
+            content = md_to_html(md_content)
+            return render(request, "encyclopedia/entry.html", {
+                "title": title,
+                "content": content
+            })
+    
+    return render(request, "encyclopedia/new_page.html")
