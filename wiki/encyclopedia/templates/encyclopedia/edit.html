@@ -7,12 +7,12 @@
 {% block body %}
     <h1>Edit '{{ title }}'</h1>
 
-    <form action="{% url 'edit' title=title %}" method="POST">
+    <form action="{% url 'edit' title=title %}" method="POST" class="form-main">
         {% csrf_token %}
-
-        <label for="edit-page__markdown-content">Edit the Markdown content for the page</label>
-        <textarea name="markdown_content" id="edit-page__markdown-content">{{ content }}</textarea>
-
+        <div>
+            <label for="edit-page__markdown-content">Edit the Markdown content for the page</label>
+            <textarea name="markdown_content" id="edit-page__markdown-content">{{ content }}</textarea>
+        </div>
         <input type="submit" value="Save">
     </form>
 

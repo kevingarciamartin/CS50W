@@ -7,15 +7,16 @@
 {% block body %}
     <h1>Create New Page</h1>
 
-    <form action="{% url 'new_page' %}" method="POST">
+    <form action="{% url 'new_page' %}" method="POST" class="form-main">
         {% csrf_token %}
-
-        <label for="new-page__title">Title</label>
-        <input id="new-page__title" type="text" name="title">
-
-        <label for="new-page__markdown-content">Enter the Markdown content for the page</label>
-        <textarea name="markdown_content" id="new-page__markdown-content"></textarea>
-
+        <div>
+            <label for="new-page__title">Title</label>
+            <input id="new-page__title" type="text" name="title">
+        </div>
+        <div>
+            <label for="new-page__markdown-content">Enter the Markdown content for the page</label>
+            <textarea name="markdown_content" id="new-page__markdown-content"></textarea>
+        </div>
         <input type="submit" value="Save">
     </form>
 

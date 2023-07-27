@@ -9,12 +9,35 @@ code {
 
 h1 {
     margin-top: 0px;
+    margin-bottom: 0.5em;
     padding-top: 20px;
 }
 
+h1::after {
+    content: "";
+    display: block;
+    background: #a2a9b1;
+    width: 80vw;
+    height: 1px;
+    transform: translateY(5px);
+}
+
+.form-main {
+    display: grid;
+    gap: 1em;
+    width: 80vw;
+}
+
+.form-main div {
+    display: inherit;
+}
+
 textarea {
-    height: 90vh;
-    width: 80%;
+    height: 50vh;
+}
+
+input[type="submit"] {
+    width: 5%;
 }
 
 .main {
