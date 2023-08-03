@@ -1,13 +1,13 @@
-{% extends "auctions/layout.html" %}
+{% extends 'auctions/layout.html' %}
 
 {% block title %}
-    Home - Auctions
+    Watchlist - Auctions
 {% endblock title %}
 
 {% block body %}
-    <h2>Active Listings</h2>
+    <h2>Watchlist</h2>
     <div class="grid gap">
-        {% for listing in listings %}
+        {% for listing in watchlist %}
             <a href="{% url 'listing' listing.id %}" class="listing card-grid">
                 <img src="{{ listing.image }}" alt="{{ listing.item }}">
                 <div>
@@ -20,4 +20,4 @@
             </a>
         {% endfor %}
     </div>
-{% endblock %}
+{% endblock body %}
