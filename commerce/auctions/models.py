@@ -1,11 +1,11 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from PIL import Image
 
 
 class User(AbstractUser):
-    first_name = models.CharField(max_length=64)
-    last_name = models.CharField(max_length=64)
+    first_name = models.CharField(max_length=64, blank=True, null=True)
+    last_name = models.CharField(max_length=64, blank=True, null=True)
+    number_of_watchlist = models.IntegerField(default=0)
     
     def __str__(self):
         return self.username
@@ -15,25 +15,35 @@ class Category(models.Model):
     
     def __str__(self):
         return self.category_name
+
+class Bid(models.Model):
+    bid = models.DecimalField(max_digits=20, decimal_places=2, blank=True, null=True)
+    bidder = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name="bidder")
+    
+    def __str__(self):
+        return f"{self.bidder} bid ${self.bid}"
     
 class Listing(models.Model):
     item = models.CharField(max_length=64)
-    price = models.DecimalField(max_digits=20, decimal_places=2)
+    listing_price = models.DecimalField(max_digits=20, decimal_places=2)
+    highest_bid = models.ForeignKey(Bid, on_delete=models.CASCADE, blank=True, null=True, related_name="highest_bid")
     description = models.CharField(max_length=500)
     image = models.CharField(max_length=500, null=True)
     lister = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, related_name="user")
     category = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True, null=True, related_name="category")
     watchlist = models.ManyToManyField(User, blank=True, null=True, related_name="watchlist")
+    number_of_bids = models.IntegerField(default=0)
     timestamp = models.DateTimeField(auto_now_add=True)
     isActive = models.BooleanField(default=True)
     
     def __str__(self):
-        return f"{self.item}: ${self.price}"
-
-class Bid(models.Model):
-    highest_bid = models.ForeignKey(Listing, on_delete=models.CASCADE, null=True, related_name="highest_bid")
-    highest_bidder = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name="highest_bidder")
-    number_of_bids = models.IntegerField(default=0)
+        return self.item
 
 class Comment(models.Model):
-    pass
+    comment = models.CharField(max_length=200, null=True)
+    commenter = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name="commenter")
+    listing = models.ForeignKey(Listing, on_delete=models.CASCADE, null=True, related_name="listing")
+    timestamp = models.DateTimeField(auto_now_add=True, null=True)
+    
+    def __str__(self):
+        return f"{self.commenter} comment on {self.listing}"
