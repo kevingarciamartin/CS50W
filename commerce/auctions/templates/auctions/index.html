@@ -1,0 +1,44 @@
+{% extends "auctions/layout.html" %}
+
+{% block title %}
+{% if user.is_authenticated %}
+    Home - 
+{% endif %}
+    Auctions
+{% endblock title %}
+
+{% block body %}
+    <div class="d-flex gap align-center">
+        <h2>Active Listings</h2>
+        <form action="{% url 'category_index' %}" method="POST" class="category-form">
+            {% csrf_token %}
+            <select name="category" id="active-listings-category">
+                <option value="all">All Categories</option>
+                {% for category in categories %}
+                    <option value="{{ category }}">{{ category }}</option>
+                {% endfor %}
+            </select>
+            <input type="submit" value="Filter">
+        </form>
+    </div>
+    <div class="grid gap">
+        {% for listing in listings %}
+            <a href="{% url 'listing' listing.id %}" class="listing card-grid">
+                <img src="{{ listing.image }}" alt="{{ listing.item }}">
+                <div>
+                    <h3>{{ listing.item }}</h3>
+                    {% if listing.number_of_bids == 0 %}
+                        <p><strong>${{ listing.listing_price }}</strong></p>
+                    {% else %}
+                        <p><strong>${{ listing.highest_bid.bid }}</strong></p>
+                    {% endif %}
+                    <p>{{ listing.description }}</p>
+                    <div>Created {{ listing.timestamp }}</div>
+                    <div>by {{ listing.lister }}</div>
+                </div>
+            </a>
+        {% empty %}
+            <h4>No listings.</h3>
+        {% endfor %}
+    </div>
+{% endblock %}
