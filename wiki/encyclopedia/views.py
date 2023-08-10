@@ -33,11 +33,7 @@ def search(request):
         query = request.POST["q"]
         md_content = util.get_entry(query)
         if md_content is not None:
-            content = md_to_html(md_content)
-            return render(request, "encyclopedia/entry.html", {
-                "title": query,
-                "content": content
-            })
+            return HttpResponseRedirect(reverse("entry", args=[query]))
         else:
             search_result = []
             entries = util.list_entries()
@@ -59,11 +55,7 @@ def new_page(request):
         else:
             md_content = request.POST["markdown_content"]
             util.save_entry(title, md_content)
-            content = md_to_html(md_content)
-            return render(request, "encyclopedia/entry.html", {
-                "title": title,
-                "content": content
-            })
+            return HttpResponseRedirect(reverse("entry", args=[title]))
     
     return render(request, "encyclopedia/new_page.html")
 
@@ -71,11 +63,7 @@ def edit(request, title):
     if request.method == "POST":
         md_content = request.POST["markdown_content"]
         util.save_entry(title, md_content)
-        content = md_to_html(md_content)
-        return render(request, "encyclopedia/entry.html", {
-            "title": title,
-            "content": content
-        })
+        return HttpResponseRedirect(reverse("entry", args=[title]))
     
     md_content = util.get_entry(title)    
     return render(request, "encyclopedia/edit.html", {
@@ -87,9 +75,4 @@ def random(request):
     entries = util.list_entries()
     index = randrange(len(entries))
     title = entries[index]
-    md_content = util.get_entry(title)
-    content = md_to_html(md_content)
-    return render(request, "encyclopedia/entry.html", {
-        "title": title,
-        "content": content
-    })
+    return HttpResponseRedirect(reverse("entry", args=[title]))
