@@ -203,3 +203,11 @@ def categories(request):
         "categories": categories,
         "firstLetters": firstLetters
     })
+    
+def category(request, category):
+    category = Category.objects.get(category_name=category)
+    listings = Listing.objects.filter(isActive=True, category=category)
+    return render(request, "auctions/category.html", {
+        "category": category,
+        "listings": listings
+    })
