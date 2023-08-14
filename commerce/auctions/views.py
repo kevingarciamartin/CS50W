@@ -3,6 +3,7 @@ from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
+from itertools import groupby
 
 from .models import User, Listing, Category, Bid, Comment
 
@@ -105,13 +106,13 @@ def create_listing(request):
             category=category
         )
         new_listing.save()
-        return HttpResponseRedirect(reverse("index"))
+        return HttpResponseRedirect(reverse("listing", args=[new_listing.id]))
         
     return render(request, "auctions/create.html", {
         "categories": Category.objects.all()
     })
     
-def close_listing(listing_id):
+def close_listing(request, listing_id):
     listing = Listing.objects.get(pk=listing_id)
     listing.isActive = False
     listing.save()
@@ -125,32 +126,6 @@ def listing(request, listing_id):
         "listing": listing,
         "listing_in_watchlist": listing_in_watchlist,
         "comments": Comment.objects.filter(listing=listing)
-    })
-    
-def add_to_watchlist(request, listing_id):
-    if request.method == "POST":
-        listing = Listing.objects.get(pk=listing_id)
-        user = request.user
-        listing.watchlist.add(user)
-        user.number_of_watchlist += 1
-        user.save()
-        return HttpResponseRedirect(reverse("listing", args=(listing_id, )))
-
-def remove_from_watchlist(request, listing_id):
-    if request.method == "POST":
-        listing = Listing.objects.get(pk=listing_id)
-        user = request.user
-        listing.watchlist.remove(user)
-        user.number_of_watchlist -= 1
-        user.save()
-        return HttpResponseRedirect(reverse("listing", args=(listing_id, )))
-    
-def watchlist(request):
-    user = request.user
-    watchlist = user.watchlist.all()
-    return render(request, "auctions/watchlist.html", {
-        "watchlist": watchlist,
-        "categories": Category.objects.all()
     })
     
 def bid(request, listing_id):
@@ -194,4 +169,37 @@ def comment(request, listing_id):
     new_comment = Comment(comment=comment, commenter=request.user, listing=listing)
     new_comment.save()
     return HttpResponseRedirect(reverse("listing", args=(listing_id, )))
-        
+
+def add_to_watchlist(request, listing_id):
+    if request.method == "POST":
+        listing = Listing.objects.get(pk=listing_id)
+        user = request.user
+        listing.watchlist.add(user)
+        user.number_of_watchlist += 1
+        user.save()
+        return HttpResponseRedirect(reverse("listing", args=(listing_id, )))
+
+def remove_from_watchlist(request, listing_id):
+    if request.method == "POST":
+        listing = Listing.objects.get(pk=listing_id)
+        user = request.user
+        listing.watchlist.remove(user)
+        user.number_of_watchlist -= 1
+        user.save()
+        return HttpResponseRedirect(reverse("listing", args=(listing_id, )))
+    
+def watchlist(request):
+    user = request.user
+    watchlist = user.watchlist.all()
+    return render(request, "auctions/watchlist.html", {
+        "watchlist": watchlist,
+        "categories": Category.objects.all()
+    })
+    
+def categories(request):
+    categories = Category.objects.order_by("category_name")
+    firstLetters = [category.category_name[0] for category in categories]
+    return render(request, "auctions/categories.html", {
+        "categories": categories,
+        "firstLetters": firstLetters
+    })

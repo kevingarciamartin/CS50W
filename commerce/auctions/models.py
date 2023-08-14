@@ -12,6 +12,7 @@ class User(AbstractUser):
     
 class Category(models.Model):
     category_name = models.CharField(max_length=64)
+    image = models.CharField(max_length=500, null=True)
     
     def __str__(self):
         return self.category_name
@@ -31,7 +32,7 @@ class Listing(models.Model):
     image = models.CharField(max_length=500, null=True)
     lister = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, related_name="user")
     category = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True, null=True, related_name="category")
-    watchlist = models.ManyToManyField(User, blank=True, null=True, related_name="watchlist")
+    watchlist = models.ManyToManyField(User, blank=True, related_name="watchlist")
     number_of_bids = models.IntegerField(default=0)
     timestamp = models.DateTimeField(auto_now_add=True)
     isActive = models.BooleanField(default=True)

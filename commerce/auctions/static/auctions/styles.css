@@ -1,21 +1,23 @@
 :root {
+    --clr-bg: #fff;
+    --clr-text: #000;
     --clr-brand: #ffc107;
     --clr-brand-light: #ffe69a;
-    --clr-text: #000;
     --clr-border: #e5e5e5;
 }
 
 body {
     box-sizing: border-box;
     font-family: 'Work Sans', sans-serif;
-    padding: 1rem;
+    background: var(--clr-bg);
+    padding: 1rem 5rem;
 }
 
-img {
+/* img {
     width: 500px;
     max-height: 500px;
     object-fit: contain;
-}
+} */
 
 form div {
     display: grid;
@@ -74,6 +76,7 @@ input[type=number] {
 h1 {
     --_offset: 2rem;
 
+    font-size: calc(2 * var(--_offset));
     font-family: 'Lobster', cursive;
     width: fit-content;
     margin-left: var(--_offset);
@@ -191,4 +194,49 @@ h1::before {
     width: 10%;
     aspect-ratio: 5 / 2;
     justify-self: center;
+}
+
+/* Categories */
+
+.categories {
+    display: flex;
+    gap: 1rem;
+}
+
+.category-card {
+    --_size: 12rem;
+    --_img: attr(data-img);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: var(--_size);
+    aspect-ratio: 1 / 1;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    background: transparent;
+    transition: background 150ms ease;
+    position: relative;
+}
+
+.category-card,
+.category-card:hover {
+    --_text-border-thickness: 1px;
+
+    color: var(--clr-bg);
+    text-shadow: calc(var(--_text-border-thickness) * -1) 0 black, 0 var(--_text-border-thickness) black, var(--_text-border-thickness) 0 black, 0 calc(var(--_text-border-thickness) * -1) black;
+    text-decoration: none;
+}
+
+.category-card:hover,
+.category-card:focus-within {
+    background: hsl(45, 100%, 51%, 0.5)
+}
+
+.category-card img {
+    position: absolute;
+    width: var(--_size);
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    z-index: -1;
 }

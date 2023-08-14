@@ -24,7 +24,7 @@
     <div class="grid gap">
         {% for listing in listings %}
             <a href="{% url 'listing' listing.id %}" class="listing card-grid">
-                <img src="{{ listing.image }}" alt="{{ listing.item }}">
+                <img src="{{ listing.image }}">
                 <div>
                     <h3>{{ listing.item }}</h3>
                     {% if listing.number_of_bids == 0 %}

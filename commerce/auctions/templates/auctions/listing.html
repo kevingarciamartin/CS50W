@@ -24,7 +24,7 @@
         {% endif %}
     {% endif %}
     <div class="card-grid">
-        <img src="{{ listing.image }}" alt="{{ listing.item }}">
+        <img src="{{ listing.image }}">
         <div class="grid gap">
             {% if user.is_authenticated %}
                 <div class="d-flex gap">
@@ -70,8 +70,13 @@
                         {% endif %}
                         <input type="submit" value="Bid">
                     </form>
-                {% elif not listing.isActive %}
-                    <p>Auction is closed. {{ listing.highest_bid.bidder.username }} has won.</p>
+                {% elif not listing.isActive  %}
+                    <p>
+                        Auction is closed.
+                        {% if listing.number_of_bids > 0 %}
+                            {{ listing.highest_bid.bidder.username }} has won.
+                        {% endif %}
+                    </p>
                 {% endif %}
             </div>
             <div>
