@@ -5,47 +5,30 @@
 {% endblock title %}
 
 {% block body %}
-    <div class="d-flex gap align-center">
-        <h2>Watchlist</h2>
-        <form action="{% url 'category_watchlist' %}" method="POST">
-            {% csrf_token %}
-            <select name="category" id="active-listings-category">
-                <option value="all">All Categories</option>
-                {% for category in categories %}
-                    <option value="{{ category }}">{{ category }}</option>
-                {% endfor %}
-            </select>
-            <input type="submit" value="Filter">
-        </form>
-    </div>
-    <div class="grid gap">
+    <h2>Watchlist</h2>
+    <div class="listings">
         {% for listing in watchlist %}
-            <a href="{% url 'listing' listing.id %}" class="listing card-grid">
-                <img src="{{ listing.image }}">
-                <div>
-                    <h3>{{ listing.item }}</h3>
+            {% if listing.image != "" %}
+                <div class="listing-card" style="--_listing-img: url('{{ listing.image }}')">
+            {% else %}
+                <div class="listing-card" style="--_listing-img: url('https://media.istockphoto.com/id/917901978/photo/gavel-on-auction-word.jpg?s=612x612&w=0&k=20&c=e5mnLUG2UEg6y8zfO1zc7Gi4Ed8PEEeV3eGeYOKxKBI=')">
+            {% endif %}
+                <div class="listing-card__content">
+                    <h3 class="listing-card__title">{{ listing.item }}</h3>
                     {% if listing.number_of_bids == 0 %}
-                        <p><strong>
-                            ${{ listing.listing_price }}
-                            {% if not listing.isActive %}
-                                - CLOSED
-                            {% endif %}
-                        </strong></p>
+                        <h6><strong>${{ listing.listing_price }}</strong></h6>
                     {% else %}
-                        <p><strong>
-                            ${{ listing.highest_bid.bid }}
-                            {% if not listing.isActive %}
-                                - SOLD
-                            {% endif %}
-                        </strong></p>
+                        <h6><strong>${{ listing.highest_bid.bid }}</strong></h6>
                     {% endif %}
-                    <p>{{ listing.description }}</p>
-                    <div>Created {{ listing.timestamp }}</div>
-                    <div>by {{ listing.lister }}</div>
+                    <div class="listing-card__body">
+                        <p class="listing-card__description">{{ listing.description }}</p>
+                        <p>Listed by {{ listing.lister }}</p>
+                    </div>
+                    <a href="{% url 'listing' listing.id %}" class="listing-card__button button button-primary">See Listing</a>
                 </div>
-            </a>
+            </div>
         {% empty %}
-            <h4>No listings.</h3>
+            <h3>Your watchlist is empty.</h3>
         {% endfor %}
     </div>
 {% endblock body %}

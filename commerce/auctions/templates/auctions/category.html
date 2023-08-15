@@ -8,7 +8,11 @@
     <h2>Category: {{ category }}</h2>
     <div class="listings">
         {% for listing in listings %}
-            <div class="listing-card" style="--_listing-img: url('{{ listing.image }}')">
+            {% if listing.image != "" %}
+                <div class="listing-card" style="--_listing-img: url('{{ listing.image }}')">
+            {% else %}
+                <div class="listing-card" style="--_listing-img: url('https://media.istockphoto.com/id/917901978/photo/gavel-on-auction-word.jpg?s=612x612&w=0&k=20&c=e5mnLUG2UEg6y8zfO1zc7Gi4Ed8PEEeV3eGeYOKxKBI=')">
+            {% endif %}
                 <div class="listing-card__content">
                     <h3 class="listing-card__title">{{ listing.item }}</h3>
                     {% if listing.number_of_bids == 0 %}
@@ -18,7 +22,7 @@
                     {% endif %}
                     <div class="listing-card__body">
                         <p class="listing-card__description">{{ listing.description }}</p>
-                        <p>{{ listing.lister }}</p>
+                        <p>Listed by {{ listing.lister }}</p>
                     </div>
                     <a href="{% url 'listing' listing.id %}" class="listing-card__button button button-primary">See Listing</a>
                 </div>
