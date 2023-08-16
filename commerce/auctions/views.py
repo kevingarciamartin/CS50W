@@ -95,7 +95,10 @@ def create_listing(request):
         price = request.POST["price"]
         image = request.POST["image"]
         category = request.POST["category"]
-        category = Category.objects.get(category_name=category)
+        if category == "":
+            category = Category.objects.get(category_name="Uncategorized")
+        else:
+            category = Category.objects.get(category_name=category)
         
         new_listing = Listing(
             item=item,

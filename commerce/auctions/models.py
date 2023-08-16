@@ -32,7 +32,7 @@ class Listing(models.Model):
     description = models.CharField(max_length=500)
     image = models.CharField(max_length=500)
     lister = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, related_name="user")
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True, null=True, related_name="category")
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True, related_name="category")
     watchlist = models.ManyToManyField(User, blank=True, related_name="watchlist")
     number_of_bids = models.IntegerField(default=0)
     timestamp = models.DateTimeField(auto_now_add=True)

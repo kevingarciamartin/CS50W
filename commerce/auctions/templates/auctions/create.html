@@ -6,25 +6,25 @@
 
 {% block body %}
     <h2>Create Listing</h2>
-    <form action="{% url 'create_listing' %}" method="POST" enctype="multipart/form-data" class="create-listing margin-inline-auto grid gap">
+    <form action="{% url 'create_listing' %}" method="POST" enctype="multipart/form-data" class="create-listing">
         {% csrf_token %}
-        <div>
+        <div class="create-listing__title">
             <label for="create-listing-title">Title</label>
             <input type="text" id="create-listing-title" name="title" required>
         </div>
-        <div>
+        <div class="create-listing__description">
             <label for="create-listing-description">Description</label>
-            <textarea name="description" id="create-listing-description" cols="50" rows="4" required></textarea>
+            <textarea name="description" id="create-listing-description" cols="50" rows="10" required></textarea>
         </div>
-        <div>
+        <div class="create-listing__price">
             <label for="create-listing-price">Price</label>
             <input type="number" id="create-listing-price" name="price" min="0" step=".01" required>
         </div>
-        <div>
+        <div class="create-listing__image">
             <label for="create-listing-image">Image URL</label>
             <input type="text" id="create-listing-image" name="image">
         </div>
-        <div>
+        <div class="create-listing__category">
             <label for="create-listing-category">Category</label>
             <select name="category" id="create-listing-category">
                 <option value="" hidden></option>
@@ -33,6 +33,6 @@
                 {% endfor %}
             </select>
         </div>
-        <input type="submit" value="Submit">
+        <button type="submit" class="button button-primary create-listing__button">Submit</button>
     </form>
 {% endblock body %}

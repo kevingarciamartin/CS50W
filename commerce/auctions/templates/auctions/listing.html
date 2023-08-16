@@ -72,7 +72,7 @@
                         {% else %}
                             <input type="number" name="bid" placeholder="Bid" min="{{ listing.highest_bid.bid }}" step=".01">
                         {% endif %}
-                        <input type="submit" value="Bid">
+                        <input type="submit" class="button button-secondary listing__bid-button" value="Bid">
                     </form>
                 {% elif not listing.isActive  %}
                     <p>
@@ -98,12 +98,12 @@
         <ul class="comment-section__comment list-group list-group-flush">
             {% for comment in comments %}
                 <li class="list-group-item">
-                    <strong>{{ comment.commenter }}</strong> &bull; <span>{{ comment.timestamp }}</span>
+                    <strong>{{ comment.commenter }}</strong> &bull; {{ comment.timestamp }}
                     <br>
                     {{ comment.comment }}
                 </li>
             {% empty %}
-                <h6>No comments.</h5>
+                <h6 style="padding-left: calc(1rem + 4px)">No comments.</h6>
             {% endfor %}
         </ul>
         {% if user.is_authenticated %}
@@ -111,7 +111,7 @@
                 {% csrf_token %}
                 <div class="comment-section__textbox">
                     <input type="text" name="comment" placeholder="Type a comment ...">
-                    <input type="submit" value="Send">
+                    <input type="submit" class="button button-secondary" value="Send">
                 </div>
             </form>
         {% endif %}
