@@ -1,41 +1,17 @@
+from decimal import *
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
-from itertools import groupby
 
 from .models import User, Listing, Category, Bid, Comment
 
 
 def index(request):
     return render(request, "auctions/index.html", {
-        "listings": Listing.objects.filter(isActive=True),
-        "categories": Category.objects.all()
+        "listings": Listing.objects.filter(isActive=True)
     })
-
-def category_index(request):
-    category = request.POST["category"]
-    if category == "all":
-        return HttpResponseRedirect(reverse("index"))
-    else:
-        category = Category.objects.get(category_name=category)
-        return render(request, "auctions/index.html", {
-            "listings": Listing.objects.filter(isActive=True, category=category),
-            "categories": Category.objects.all()
-        })
-        
-def category_watchlist(request):
-    category = request.POST["category"]
-    if category == "all":
-        return HttpResponseRedirect(reverse("watchlist"))
-    else:
-        category = Category.objects.get(category_name=category)
-        listings = Listing.objects.filter(category=category, watchlist=request.user)
-        return render(request, "auctions/watchlist.html", {
-            "watchlist": listings,
-            "categories": Category.objects.all()
-        })
 
 def login_view(request):
     if request.method == "POST":
@@ -102,7 +78,7 @@ def create_listing(request):
         
         new_listing = Listing(
             item=item,
-            listing_price=float(price),
+            listing_price=Decimal(price),
             description=description,
             image=image,
             lister=request.user,
@@ -112,7 +88,7 @@ def create_listing(request):
         return HttpResponseRedirect(reverse("listing", args=[new_listing.id]))
         
     return render(request, "auctions/create.html", {
-        "categories": Category.objects.all()
+        "categories": Category.objects.order_by("category_name")
     })
     
 def close_listing(request, listing_id):
@@ -134,16 +110,18 @@ def listing(request, listing_id):
 def bid(request, listing_id):
     if request.method == "POST":
         bid = request.POST["bid"]
+        getcontext().prec = 2
+        bid = Decimal(bid)
         listing = Listing.objects.get(pk=listing_id)
         if listing.number_of_bids == 0:
-            is_sufficiently_large = True if float(bid) >= listing.listing_price else False
+            is_sufficiently_large = True if bid >= listing.listing_price else False
         else:
-            is_sufficiently_large = True if float(bid) > listing.highest_bid.bid else False
+            is_sufficiently_large = True if bid > listing.highest_bid.bid else False
             
         if is_sufficiently_large:
-            bid = Bid(bid=float(bid), bidder=request.user)
-            bid.save()
-            listing.highest_bid = bid
+            newBid = Bid(bid=format(bid, '.2f'), bidder=request.user)
+            newBid.save()
+            listing.highest_bid = newBid
             listing.number_of_bids += 1
             listing.save()
             return render(request, "auctions/listing.html", {
@@ -201,10 +179,8 @@ def watchlist(request):
     
 def categories(request):
     categories = Category.objects.order_by("category_name")
-    firstLetters = [category.category_name[0] for category in categories]
     return render(request, "auctions/categories.html", {
-        "categories": categories,
-        "firstLetters": firstLetters
+        "categories": categories
     })
     
 def category(request, category):

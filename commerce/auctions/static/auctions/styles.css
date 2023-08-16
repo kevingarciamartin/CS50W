@@ -49,12 +49,6 @@ input[type=number] {
 
 /* Utility class styling */
 
-.card-grid {
-    display: grid;
-    gap: 3rem;
-    grid-template-columns: 1fr 2fr;
-}
-
 .grid {
     display: grid;
 }
@@ -304,6 +298,16 @@ h1::before {
 
 /* Listing */
 
+.card-grid {
+    display: grid;
+    gap: 3rem;
+    grid-template-columns: 1fr 1fr;
+}
+
+.card-grid img {
+    justify-self: center;
+}
+
 .bid [type="number"] {
     padding-inline: 0.5em;
 }
@@ -363,6 +367,11 @@ h1::before {
 
 .create-listing__description {
     grid-area: description;
+}
+
+
+#create-listing-description {
+    padding-block: 0.5em;
 }
 
 .create-listing__button {
