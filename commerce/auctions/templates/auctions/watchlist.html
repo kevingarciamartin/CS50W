@@ -9,9 +9,9 @@
     <div class="listings">
         {% for listing in watchlist %}
             {% if listing.image != "" %}
-                <div class="listing-card" style="--_listing-img: url('{{ listing.image }}')">
+                <div class="listing-card" style="--_listing-img: url('{{ listing.image }}')" title="{{ listing.item }}">
             {% else %}
-                <div class="listing-card" style="--_listing-img: url('https://media.istockphoto.com/id/917901978/photo/gavel-on-auction-word.jpg?s=612x612&w=0&k=20&c=e5mnLUG2UEg6y8zfO1zc7Gi4Ed8PEEeV3eGeYOKxKBI=')">
+                <div class="listing-card" style="--_listing-img: url('https://media.istockphoto.com/id/917901978/photo/gavel-on-auction-word.jpg?s=612x612&w=0&k=20&c=e5mnLUG2UEg6y8zfO1zc7Gi4Ed8PEEeV3eGeYOKxKBI=')" title="Default Auctions image">
             {% endif %}
                 <div class="listing-card__content">
                     <h3 class="listing-card__title">{{ listing.item }}</h3>

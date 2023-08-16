@@ -24,7 +24,11 @@
         {% endif %}
     {% endif %}
     <div class="card-grid">
-        <img src="{{ listing.image }}">
+        {% if listing.image != "" %}
+            <img src="{{ listing.image }}" alt="{{ listing.item }}">
+        {% else %}
+            <img src="https://media.istockphoto.com/id/917901978/photo/gavel-on-auction-word.jpg?s=612x612&w=0&k=20&c=e5mnLUG2UEg6y8zfO1zc7Gi4Ed8PEEeV3eGeYOKxKBI=" alt="Default Auctions image">
+        {% endif %}
         <div class="grid gap">
             {% if user.is_authenticated %}
                 <div class="d-flex gap">
