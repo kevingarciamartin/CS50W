@@ -427,3 +427,17 @@ h1::before {
     object-fit: cover;
     z-index: -1;
 }
+
+/* Log in / Register */
+
+.login,
+.register {
+    margin-inline: auto;
+    width: 50%;
+}
+
+.login__button,
+.register__button {
+    padding: 1em 1.5em;
+    margin-bottom: 1rem;
+}

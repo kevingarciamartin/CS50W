@@ -64,7 +64,7 @@
                     {% endif %}
                     <span class="my-2">({{ listing.number_of_bids }}) bids</span>
                 </div>
-                {% if user.is_authenticated and listing.isActive %}
+                {% if user.is_authenticated and listing.isActive and listing.lister != user %}
                     <form action="{% url 'bid' listing_id=listing.id %}" method="POST" class="bid">
                         {% csrf_token %}
                         {% if listing.number_of_bids == 0 %}
