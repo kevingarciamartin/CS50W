@@ -1,0 +1,30 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Encyclopedia
+{% endblock %}
+
+{% block body %}
+    <h1>All Pages</h1>
+
+    <ul class="entry-list">
+        {% for alpha, entries in alphaDict.items %}
+            <li class="entry-list__alpha">
+                <h4 >{{ alpha }}</h4>
+                <ul>
+                    {% for entry in entries %}
+                        <li>
+                            {% if entries|length > 1 and entries|first != entry %}
+                                <span class="divider">&bull;</span>
+                            {% endif %}
+                            <a href="{% url 'entry' title=entry %}">
+                                {{ entry }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}
