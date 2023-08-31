@@ -1,0 +1,212 @@
+:root {
+    --clr-bg: #fff;
+    --clr-logo: #000;
+    --clr-nav: rgb(0, 123, 255);
+    --clr-user: hsl(0, 0%, 0%, 0.75);
+    --clr-hover: hsl(211, 100%, 50%, 0.2);
+    --clr-read: hsl(210, 17%, 93%);
+    --clr-timestamp: hsl(0, 0%, 0%, 0.5);
+    --clr-body: hsl(0, 0%, 0%, 0.65);
+    --clr-border: #ced4da;
+    --clr-svg: #6c757d;
+}
+
+body {
+    background: var(--clr-bg);
+}
+
+/* Utility classes */
+
+.read {
+    background: var(--clr-read);
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+/* Logo */
+
+h1 {
+    width: fit-content;
+    margin-top: 1rem;
+}
+
+h1 a {
+    font-family: 'Qwitcher Grypen';
+    font-size: 4rem;
+    display: flex;
+    gap: 0.3em;
+    align-items: center;
+}
+
+h1 a,
+h1:hover a {
+    color: #000;
+    text-decoration: none;
+}
+
+h1 svg {
+    fill: var(--clr-logo);
+}
+
+/* Log in / Register */
+
+.auth-title {
+    margin-top: 5rem;
+}
+
+/* Navigation */
+
+nav {
+    display: grid;
+    gap: 0.5rem;
+    grid-template-columns: repeat(7, 1fr);
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+nav h2 {
+    grid-column: 7 / 8;
+    justify-self: end;
+    color: var(--clr-user);
+}
+
+/* Button */
+
+#inbox svg,
+#compose svg,
+#sent svg,
+#archived svg,
+#logout svg {
+    fill: var(--clr-nav);
+}
+
+#inbox:hover svg,
+#compose:hover svg,
+#sent:hover svg,
+#archived:hover svg,
+#logout:hover svg {
+    fill: var(--clr-bg);
+}
+
+[class*="-button"] {
+    display: flex;
+    gap: 0.3em;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+}
+
+.nav-button {
+    width: 100%;
+    height: 60%;
+}
+
+[class*="-button"] svg {
+    fill: var(--clr-svg);
+    transition: fill 0.15s ease-in-out;
+}
+
+[class*="-button"]:hover svg {
+    fill: var(--clr-bg);
+}
+
+/* Mailbox */
+
+[class*="mailbox-item-"] {
+    --_height: 100px;
+
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: 1fr 2fr auto;
+    cursor: pointer;
+    height: var(--_height);
+    overflow: hidden;
+    transition: background 0.15s ease-in-out;
+}
+
+[class*="mailbox-item-"]:hover {
+    background: var(--clr-hover);
+}
+
+.mailbox-item__info {
+    display: grid;
+    align-content: start;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.mailbox-item__timestamp {
+    font-size: 0.85rem;
+    color: var(--clr-timestamp);
+}
+
+.mailbox-item__body{
+    font-size: 0.9rem;
+    color: var(--clr-body);
+    max-width: 35vw;
+    word-wrap: break-word;
+}
+
+.mailbox-item__button-group {
+    --_button-group-height: calc(var(--_height) - 24px);
+
+    height: var(--_button-group-height);
+    display: grid;
+}
+
+.mailbox-item__archive-button,
+.mailbox-item__read-button {
+    --_button-height: calc(var(--_height) / 3); 
+    
+    height: var(--_button-height);
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: calc(var(--_button-height) / 6);
+}
+
+/* Email */
+
+.email {
+    margin-block: 1rem;
+}
+
+.email__info {
+    padding-inline: 1rem;
+}
+
+.email__info h6 {
+    margin-bottom: 0;
+}
+
+.email__info p {
+    font-size: 0.85em;
+    color: var(--clr-timestamp);
+}
+
+.email__info p span {
+    color: #000;
+}
+
+.email__body {
+    border: 1px solid var(--clr-border);
+    border-radius: .25rem;
+    padding: 1rem;
+}
+
+/* Compose form */
+
+textarea {
+    min-height: 300px;
+    resize: none;
+}
+
+.compose__send-button {
+    margin-top: 1rem;
+}
+
+.compose__send-button svg {
+    fill: var(--clr-bg);
+}
