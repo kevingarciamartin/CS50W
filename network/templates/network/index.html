@@ -1,5 +1,24 @@
 {% extends "network/layout.html" %}
 
 {% block body %}
-    TODO
+    {% if user.is_authenticated %}
+        <form class="new-post" action="{% url 'new' %}" method="POST">
+            {% csrf_token %}
+            <textarea name="content" id="new-post" placeholder="Make a new post" maxlength="255"></textarea>
+            <input class="button-primary" type="submit" value="Post">
+        </form>
+    {% endif %}
+
+    <section id="all-posts" class="list-group">
+        {% for post in posts %}
+            <div class="post list-group-item">
+                <div class="post__heading">
+                    <div>{{ post.poster.username }}</div> 
+                    <div>&#x2022; {{ post.timestamp }}</div>
+                </div>
+                <p>{{ post.content }}</p>
+                <div>Likes: {{ post.number_of_likes }}</div>
+            </div>
+        {% endfor %}
+    </section>
 {% endblock %}
