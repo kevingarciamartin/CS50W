@@ -1,11 +1,12 @@
 :root {
-    --clr-bg: #fff;
     --clr-brand: #1da1f1;
     --clr-brand-hover: #1785c9;
+    --clr-bg: #fff;
     --clr-text: #000;
     --clr-text-500: hsla(0, 0%, 0%, 0.5);
     --clr-text-750: hsla(0, 0%, 0%, 0.75);
     --clr-text-900: hsla(0, 0%, 0%, 0.9);
+    --clr-border: #dfdfdf;
 }
 
 /* General styling */
@@ -40,17 +41,23 @@ textarea {
 /* New post form */
 
 .new-post {
+    --post-border-radius: 0.25rem;
+
     display: grid;
-    
-    border: 2px solid var(--clr-brand);
+    border: 1px solid var(--clr-border);
+    border-radius: 0 0 var(--post-border-radius) var(--post-border-radius);
     padding: 1rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
 }
 
 .new-post textarea {
-    height: 3em;
+    height: 3ch;
     border: none;
     outline: none;
+    transition: height 300ms ease;
+}
+.new-post:focus-within textarea {
+    height: 10ch;
 }
 
 .new-post > [type="submit"] {
@@ -66,8 +73,27 @@ textarea {
 }
 
 .post__heading > :first-child {
+    color: var(--clr-text);
     font-weight: bold;
+    text-decoration: none;
+}
+.post__heading > :first-child:hover {
+    color: var(--clr-text-750);
 }
 .post__heading > :not(:first-child) {
     color: var(--clr-text-500);
+}
+
+.post > :last-child {
+    display: flex;
+}
+.post button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--clr-bg);
+    border: none;
+}
+.post button svg {
+    width: 1em;
 }
