@@ -94,10 +94,6 @@ def profile_page(request, user):
             is_following = False
     except:
         is_following = False
-        
-    print(User.objects.get(pk=request.user.id))
-    print(check_follow)
-    print(is_following)
     
     return render(request, "network/profile.html", {
         "profile_user": user,
@@ -128,3 +124,20 @@ def unfollow(request, user):
     follow.delete()
     
     return HttpResponseRedirect(reverse("profile", args=[request.POST["followed"]]))
+
+
+def following(request):
+    user = User.objects.get(pk=request.user.id)
+    following = Follow.objects.filter(follower=user)
+    all_posts = Post.objects.all().order_by("-timestamp")
+    
+    following_posts = []
+    
+    for post in all_posts:
+        for person in following:
+            if person.followed == post.poster:
+                following_posts.append(post) 
+        
+    return render(request, "network/following.html", {
+        "posts": following_posts
+    })
