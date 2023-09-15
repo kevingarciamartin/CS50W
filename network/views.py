@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate, login, logout
+from django.core.paginator import Paginator
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
@@ -9,8 +10,14 @@ from .models import User, Post, Follow
 
 def index(request):
     posts = Post.objects.all().order_by("-timestamp")
+    
+    # Pagination
+    paginator = Paginator(posts, 10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+        
     return render(request, "network/index.html", {
-        "posts": posts
+        "posts": page_obj
     })
 
 
@@ -83,6 +90,12 @@ def new_post(request):
 def profile_page(request, user):
     user = User.objects.get(username=user)
     posts = Post.objects.filter(poster=user).order_by("-timestamp")
+    
+    # Pagination
+    paginator = Paginator(posts, 10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    
     following = Follow.objects.filter(follower=user)
     followers = Follow.objects.filter(followed=user)
     
@@ -97,7 +110,7 @@ def profile_page(request, user):
     
     return render(request, "network/profile.html", {
         "profile_user": user,
-        "posts": posts,
+        "posts": page_obj,
         "following": following,
         "followers": followers,
         "isFollowing": is_following
@@ -137,7 +150,12 @@ def following(request):
         for person in following:
             if person.followed == post.poster:
                 following_posts.append(post) 
+                
+     # Pagination
+    paginator = Paginator(following_posts, 10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
         
     return render(request, "network/following.html", {
-        "posts": following_posts
+        "posts": page_obj
     })
