@@ -1,15 +1,31 @@
 {% extends "network/layout.html" %}
 
 {% block body %}
-    {% if user.is_authenticated %}
-        <form class="new-post" action="{% url 'new' %}" method="POST">
-            {% csrf_token %}
-            <textarea name="content" id="new-post" placeholder="Make a new post" maxlength="255"></textarea>
-            <input class="button-primary" type="submit" value="Post">
-        </form>
-    {% endif %}
-
-    <section id="all-posts" class="list-group">
+    <section class="profile__info">
+        <div class="profile__info-header">
+            <h4><strong>{{ profile_user }}</strong></h4>
+            {% if user.is_authenticated and user.username != profile_user.username %}
+                {% if isFollowing %}
+                    <form action="{% url "unfollow" user=profile_user.username %}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="followed" value="{{ profile_user }}">
+                        <input class="button-primary" type="submit" value="Unfollow">
+                    </form>
+                    {% else %}
+                    <form action="{% url "follow" user=profile_user.username %}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="followed" value="{{ profile_user }}">
+                        <input class="button-primary" type="submit" value="Follow">
+                    </form>
+                {% endif %}
+            {% endif %}
+        </div> 
+        <div class="profile__info-follow">
+            <span><strong>{{ following.count }}</strong> <span class="clr-text-500">Following</span></span> 
+            <span><strong>{{ followers.count }}</strong> <span class="clr-text-500">Followers</span></span>
+        </div> 
+    </section>
+    <section class="profile__posts">
         {% for post in posts %}
             <div class="post list-group-item">
                 <div class="post__heading">
@@ -21,4 +37,4 @@
             </div>
         {% endfor %}
     </section>
-{% endblock %}
+{% endblock body %}

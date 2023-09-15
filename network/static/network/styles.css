@@ -12,11 +12,17 @@
 /* General styling */
 
 body {
-    margin-inline: 30rem;
+    margin-inline: 30%;
 }
 
-#logo {
-    height: 2em;
+.clr-text-500 {
+    color: var(--clr-text-500);
+}
+.clr-text-750 {
+    color: var(--clr-text-750);
+}
+.clr-text-900 {
+    color: var(--clr-text-900);
 }
 
 textarea {
@@ -27,6 +33,7 @@ textarea {
     font-weight: bold;
     color: var(--clr-bg);
     background: var(--clr-brand);
+    padding: 0.5em 1em;
     border: none;
     outline: none;
     border-radius: 5rem;
@@ -36,6 +43,16 @@ textarea {
 .button-primary:hover,
 .button-primary:focus {
     background: var(--clr-brand-hover);
+}
+
+/* Navigation */
+
+nav {
+    gap: 1rem;
+}
+
+#logo {
+    height: 2rem;
 }
 
 /* New post form */
@@ -62,7 +79,6 @@ textarea {
 
 .new-post > [type="submit"] {
     justify-self: end;
-    padding: 0.5em 1em;
 }
 
 /* Post */
@@ -86,6 +102,7 @@ textarea {
 
 .post > :last-child {
     display: flex;
+    color: var(--clr-text-750);
 }
 .post button {
     display: flex;
@@ -96,4 +113,27 @@ textarea {
 }
 .post button svg {
     width: 1em;
+    fill: var(--clr-text-750);
+}
+
+/* Profile */
+
+.profile__info {
+    --post-border-radius: 0.25rem;
+    
+    display: grid;
+    border: 1px solid var(--clr-border);
+    border-radius: 0 0 var(--post-border-radius) var(--post-border-radius);
+    padding: 1rem 1.3rem;
+    margin-bottom: 0.5rem;
+}
+
+.profile__info-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.profile__info-follow {
+    display: flex;
+    gap: 1rem;
 }

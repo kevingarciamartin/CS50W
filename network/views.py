@@ -4,7 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 
-from .models import User, Post
+from .models import User, Post, Follow
 
 
 def index(request):
@@ -78,3 +78,53 @@ def new_post(request):
     new_post.save()
     
     return HttpResponseRedirect(reverse("index"))
+
+
+def profile_page(request, user):
+    user = User.objects.get(username=user)
+    posts = Post.objects.filter(poster=user).order_by("-timestamp")
+    following = Follow.objects.filter(follower=user)
+    followers = Follow.objects.filter(followed=user)
+    
+    try:
+        check_follow = followers.filter(follower=User.objects.get(pk=request.user.id))
+        if len(check_follow) != 0:
+            is_following = True
+        else:
+            is_following = False
+    except:
+        is_following = False
+        
+    print(User.objects.get(pk=request.user.id))
+    print(check_follow)
+    print(is_following)
+    
+    return render(request, "network/profile.html", {
+        "profile_user": user,
+        "posts": posts,
+        "following": following,
+        "followers": followers,
+        "isFollowing": is_following
+    })
+    
+    
+def follow(request, user):
+    follower = User.objects.get(pk=request.user.id)
+    followed = User.objects.get(username=request.POST["followed"])
+    
+    follow = Follow(follower=follower, followed=followed)
+    
+    follow.save()
+    
+    return HttpResponseRedirect(reverse("profile", args=[request.POST["followed"]]))
+    
+    
+def unfollow(request, user):
+    follower = User.objects.get(pk=request.user.id)
+    followed = User.objects.get(username=request.POST["followed"])
+    
+    follow = Follow.objects.get(follower=follower, followed=followed)
+    
+    follow.delete()
+    
+    return HttpResponseRedirect(reverse("profile", args=[request.POST["followed"]]))
