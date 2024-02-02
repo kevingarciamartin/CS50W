@@ -1,6 +1,6 @@
 {% extends "network/layout.html" %}
 
-{% block body %}
+{% block main %}
     {% if user.is_authenticated %}
         <form class="new-post" action="{% url 'new' %}" method="POST">
             {% csrf_token %}
