@@ -109,7 +109,7 @@ LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'Europe/Stockholm'
 
-DATETIME_FORMAT = 'Y M jS H:i' 
+DATETIME_FORMAT = 'jS M Y H:i' 
 
 USE_I18N = True
 

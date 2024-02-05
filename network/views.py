@@ -1,9 +1,11 @@
 from django.contrib.auth import authenticate, login, logout
 from django.core.paginator import Paginator
 from django.db import IntegrityError
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse
+
+import json
 
 from .models import User, Post, Follow
 
@@ -159,3 +161,22 @@ def following(request):
     return render(request, "network/following.html", {
         "posts": page_obj
     })
+    
+def edit_post(request, post_id):
+    
+    # Query for requested post
+    try:
+        post = Post.objects.get(poster=request.user, pk=post_id)
+    except Post.DoesNotExist:
+        return JsonResponse({"error": "Post not found."}, status=404)
+    
+    # Get new content
+    data = json.loads(request.body)
+    new_content = data.get('newContent', '')
+    
+    # Update post
+    post.content = new_content
+    post.save()
+    
+    return JsonResponse({'updated': True, 'data': data}, status=200)
+    

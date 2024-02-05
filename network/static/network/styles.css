@@ -27,6 +27,13 @@ body {
 
 textarea {
     resize: none;
+    width: 100%;
+
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+        display: none;
+    }
 }
 
 .button-primary {
@@ -72,15 +79,9 @@ nav {
     border: none;
     outline: none;
     transition: height 300ms ease;
-    
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-    &::-webkit-scrollbar {
-        display: none;
-    }
 }
 .new-post:focus-within textarea {
-    height: 10ch;
+    height: 15ch;
 }
 
 .new-post > [type="submit"] {
@@ -91,26 +92,48 @@ nav {
 
 .post__heading {
     display: flex;
-    gap: 0.2rem;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.post__heading > :first-child {
+.post__heading :first-child {
+    display: flex;
+    gap: 0.3rem;
+}
+
+.post__heading a {
     color: var(--clr-text);
     font-weight: bold;
     text-decoration: none;
 }
-.post__heading > :first-child:hover {
+.post__heading a:hover {
     color: var(--clr-text-750);
 }
-.post__heading > :not(:first-child) {
+
+.post__timestamp {
     color: var(--clr-text-500);
+}
+
+.post__edit {
+    display: flex;
+
+    button {
+        color: var(--clr-text-500);
+        font-size: 0.8rem;
+        background: transparent;
+        border: transparent;
+
+        &:hover {
+            color: var(--clr-text-750);
+        }
+    }
 }
 
 .post > :last-child {
     display: flex;
     color: var(--clr-text-750);
 }
-.post button {
+.post button:has(svg) {
     display: flex;
     justify-content: center;
     align-items: center;
