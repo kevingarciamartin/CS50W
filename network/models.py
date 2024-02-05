@@ -6,8 +6,17 @@ class User(AbstractUser):
     followers = models.IntegerField(default=0)
     following = models.IntegerField(default=0)
     
+    def serialize(self):
+        return {
+            "id": self.id,
+            "username": self.username,
+            "followers": self.followers,
+            "following": self.following,
+        }
+            
     def __str__(self):
         return self.username
+
 
 class Post(models.Model):
     poster = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user")
@@ -15,8 +24,18 @@ class Post(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     likes = models.IntegerField(default=0)
     
+    def serialize(self):
+        return {
+            "id": self.id,
+            "poster": self.poster,
+            "content": self.content,
+            "timestamp": self.timestamp.strftime('%d %b %Y %H:%M:%S'),
+            "likes": self.likes,
+        }
+    
     def __str__(self):
-        return f"Post {self.id} made by {self.poster} on {self.timestamp.strftime('%Y %b %d %H:%M:%S')}"
+        return f"Post {self.id} made by {self.poster} on {self.timestamp.strftime('%d %b %Y %H:%M:%S')}"
+ 
     
 class Follow(models.Model):
     follower = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_following")
