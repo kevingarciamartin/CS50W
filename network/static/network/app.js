@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
         saveButton.onclick = async () => {
             const newContent = editableContent.value;
             const csrftoken = getCookie('csrftoken');
-            const response = await fetch(`/posts/${postID}`, {
+            await fetch(`/posts/${postID}`, {
                 method: 'POST',
                 headers: { 'X-CSRFToken': csrftoken },
                 body: JSON.stringify({ newContent: newContent }),
