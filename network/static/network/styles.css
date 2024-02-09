@@ -81,7 +81,7 @@ nav {
     transition: height 300ms ease;
 }
 .new-post:focus-within textarea {
-    height: 15ch;
+    height: 12ch;
 }
 
 .new-post > [type="submit"] {
@@ -90,24 +90,25 @@ nav {
 
 /* Post */
 
-.post__heading {
+.post__header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
 
-.post__heading :first-child {
-    display: flex;
-    gap: 0.3rem;
-}
+    & :first-child {
+        display: flex;
+        gap: 0.3em;
+    }
 
-.post__heading a {
-    color: var(--clr-text);
-    font-weight: bold;
-    text-decoration: none;
-}
-.post__heading a:hover {
-    color: var(--clr-text-750);
+    a {
+        color: var(--clr-text);
+        font-weight: bold;
+        text-decoration: none;
+
+        &:hover {
+            color: var(--clr-text-750);
+        }
+    }
 }
 
 .post__timestamp {
@@ -129,20 +130,36 @@ nav {
     }
 }
 
-.post > :last-child {
+.post__footer {
     display: flex;
+    gap: 0.2em;
     color: var(--clr-text-750);
 }
-.post button:has(svg) {
+
+.post__like-button,
+.post__unlike-button {
     display: flex;
-    justify-content: center;
     align-items: center;
     background: var(--clr-bg);
     border: none;
+    padding: 0;
+
+    svg {
+        width: 1em;
+        fill: var(--clr-text-750);
+    }
+
+    &:focus {
+        outline: none;
+    }
+
+    &:focus-visible {
+        outline: revert-layer;
+    }
 }
-.post button svg {
-    width: 1em;
-    fill: var(--clr-text-750);
+
+.post__unlike-button {
+    display: none;
 }
 
 /* Profile */

@@ -7,7 +7,7 @@ from django.urls import reverse
 
 import json
 
-from .models import User, Post, Follow
+from .models import User, Post, Follow, Like
 
 
 def index(request):
@@ -179,4 +179,79 @@ def edit_post(request, post_id):
     post.save()
     
     return JsonResponse({'updated': True, 'data': data}, status=200)
+
+
+def is_liked(request, post_id):
+    
+    # Query for requested post
+    try:
+        post = Post.objects.get(pk=post_id)
+    except Post.DoesNotExist:
+        return JsonResponse({'error': 'Post not found.'}, status=404)
+    
+    # Check if user has liked the post
+    try:
+        Like.objects.get(user=request.user, post=post)
+    except Like.DoesNotExist:
+        return JsonResponse({'isLiked': False}, status=200)
+    
+    return JsonResponse({'isLiked': True}, status=200)
+
+
+def like(request, post_id):
+    
+    # POST
+    if request.method != 'POST':
+        return JsonResponse({'error': 'POST request required.'}, status=404)
+    
+    # Query for requested post
+    try:
+        post = Post.objects.get(pk=post_id)
+    except Post.DoesNotExist:
+        return JsonResponse({'error': 'Post not found.'}, status=404)
+    
+    like = Like.objects.create(user=request.user, post=post)
+    
+    if like:
+        post.likes += 1
+        post.save()
+        return JsonResponse({'isLiked': True}, status=200)
+    
+    return JsonResponse({'isLiked': False}, status=400)
+
+
+def unlike(request, post_id):
+    
+    # POST
+    if request.method != 'POST':
+        return JsonResponse({'error': 'POST request required.'}, status=404)
+    
+    # Query for requested post
+    try:
+        post = Post.objects.get(pk=post_id)
+    except Post.DoesNotExist:
+        return JsonResponse({'error': 'Post not found.'}, status=404)
+
+    try:
+        unlike = Like.objects.get(user=request.user, post=post)
+        unlike.delete()
+        post.likes -= 1
+        post.save()
+    except Like.DoesNotExist:
+        return JsonResponse({'isLiked': False}, status=400)
+    
+    return JsonResponse({'isLiked': False}, status=200)
+
+
+def get_likes(request, post_id):
+    
+    # Query for requested post
+    try:
+        post = Post.objects.get(pk=post_id)
+    except Post.DoesNotExist:
+        return JsonResponse({'error': 'Post not found.'}, status=404)
+    
+    likes = Like.objects.filter(post=post).count()
+    
+    return JsonResponse({'likes': likes}, status=200)
     

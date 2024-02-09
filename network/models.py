@@ -34,7 +34,7 @@ class Post(models.Model):
         }
     
     def __str__(self):
-        return f"Post {self.id} made by {self.poster} on {self.timestamp.strftime('%d %b %Y %H:%M:%S')}"
+        return f"Post {self.id} made by {self.poster} on {self.timestamp.strftime('%d %b %Y %H:%M:%S')} ({self.likes} likes)"
  
     
 class Follow(models.Model):
@@ -43,3 +43,11 @@ class Follow(models.Model):
     
     def __str__(self):
         return f"{self.follower} followed {self.followed}"
+    
+    
+class Like(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_liked")
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="post_liked")
+    
+    def __str__(self):
+        return f"{self.user} liked {self.post}"
